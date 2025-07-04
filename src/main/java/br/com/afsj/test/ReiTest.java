@@ -13,6 +13,125 @@ import br.com.afsj.view.IPeao;
 import br.com.afsj.model.Rei;
 
 public class ReiTest {
+    @BeforeEach
+    public void iniciarTabuleiro() {
+        Tabuleiro tabuleiro = new Tabuleiro();
+        tabuleiro.iniciar(new TradutorEspanhol());
+    }
+
+    @Test
+    @DisplayName("Selecionar o Rei com sucesso")
+    public void selecionarReiComSucesso() {
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Rei rp = Tabuleiro.reiPreto;
+        IRei irp = Tabuleiro.iReiPreto;
+
+        Tabuleiro.avaliarEventoPeca(rb, irb); // Selecionar Rei branco
+
+        Tabuleiro.avaliarEventoTabuleiro(4, 6);
+        assertAll("Mover Rei Branco para (4, 6)",
+                () -> assertEquals(4, rb.getPosX()),
+                () -> assertEquals(6, rb.getPosY())
+        );
+    }
+
+    @Test
+    @DisplayName("Inicialização da peça")
+    public void inicializacaoDaPeça() {
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Rei rp = Tabuleiro.reiPreto;
+        IRei irp = Tabuleiro.iReiPreto;
+
+        assertAll("Rei branco aparaceu na E1",
+                () -> assertEquals(5, rb.getPosX()),
+                () -> assertEquals(7, rb.getPosY())
+        );
+
+        assertAll("Rei preto aparaceu na E8",
+                () -> assertEquals(5, rb.getPosX()),
+                () -> assertEquals(7, rb.getPosY())
+        );
+    }
+
+    @Test
+    @DisplayName("Movimento de uma peça")
+    public void movimentoDePeca() {
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Rei rp = Tabuleiro.reiPreto;
+        IRei irp = Tabuleiro.iReiPreto;
+
+        Tabuleiro.avaliarEventoPeca(rb, irb); // Selecionar Rei branco
+
+        Tabuleiro.avaliarEventoTabuleiro(4, 6);
+        assertAll("Mover Rei Branco para (4, 6)",
+                () -> assertEquals(4, rb.getPosX()),
+                () -> assertEquals(6, rb.getPosY())
+        );
+    }
+
+    @Test
+    @DisplayName("Validação do Movimento")
+    public void validacaoDoMovimento() throws InterruptedException {
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Peao pb = Tabuleiro.peaoBranco1;
+        IPeao ipb = Tabuleiro.iPeaoBranco1;
+
+        pb.mover(3, 7);
+        ipb.mover(3, 7);
+
+        Thread.sleep(1000);
+
+        Rei rp = Tabuleiro.reiPreto;
+        IRei irp = Tabuleiro.iReiPreto;
+
+        Tabuleiro.avaliarEventoPeca(rb, irb); // Selecionar Rei branco
+
+        Tabuleiro.avaliarEventoTabuleiro(3, 7);
+        assertAll("Rei branco tentou mover para D1",
+                () -> assertEquals(4, rb.getPosX()),
+                () -> assertEquals(7, rb.getPosY())
+        );
+    }
+
+    @Test
+    @DisplayName("Tentar mover a Rainha pondo o Rei em Xeque")
+    public void tentarMoverRainhaPondoReiEmXeque() throws InterruptedException {
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Thread.sleep(1000);
+
+        Rei rp = Tabuleiro.reiPreto;
+        IRei irp = Tabuleiro.iReiPreto;
+
+        Rainha rnb = Tabuleiro.rainhaBranca;
+        IRainha irnb = Tabuleiro.iRainhaBranca;
+
+        rnb.mover(4, 6);
+        irnb.mover(4, 6);
+
+        Rainha rnp = Tabuleiro.rainhaPreta;
+        IRainha irnp = Tabuleiro.iRainhaPreta;
+
+        rnp.mover(4, 7);
+        irnp.mover(4, 7);
+
+        Tabuleiro.avaliarEventoPeca(rb, irb); // Selecionar Rei branco
+
+        Tabuleiro.avaliarEventoTabuleiro(3, 7);
+        assertAll("Rei branco tentou mover para D1",
+                () -> assertEquals(4, rb.getPosX()),
+                () -> assertEquals(7, rb.getPosY())
+        );
+    }
 
     @Test
     @DisplayName("")
