@@ -15,63 +15,65 @@ import br.com.afsj.view.ITorre;
 public class Tabuleiro {
 
 	protected static JFrame TELA;
-	
+
 	public static ArrayPecas listaBrancas;
 	public static ArrayPecas listaPretas;
 
 	protected static int corJogadorAtual;
 	protected static Peca pecaMarcada;
 	protected static IPeca iPecaMarcada;
-	
+
 	protected static ITabuleiro iTabuleiro;
 
-/*
+
 	protected static Torre torreBranca = new Torre();
 	protected static ITorre iTorreBranca = new ITorre(torreBranca);
-	
+
 	protected static Torre torrePreta = new Torre();
 	protected static ITorre iTorrePreta = new ITorre(torrePreta);
 
+
 	protected static Rei reiBranco = new Rei();
 	protected static IRei iReiBranco = new IRei(reiBranco);
-	
+
 	protected static Rei reiPreto = new Rei();
 	protected static IRei iReiPreto = new IRei(reiPreto);
 
-	protected static Cavalo cavaloPreto1 = new Cavalo();
-	protected static ICavalo iCavaloPreto1 = new ICavalo(cavaloPreto1);
+	/*
+        protected static Cavalo cavaloPreto1 = new Cavalo();
+        protected static ICavalo iCavaloPreto1 = new ICavalo(cavaloPreto1);
 
-	protected static Cavalo cavaloBranco1 = new Cavalo();
-	protected static ICavalo iCavaloBranco1 = new ICavalo(cavaloBranco1);
-	
-	
-	protected static Bispo bispoBranco = new Bispo();
-	protected static IBispo iBispoBranco = new IBispo(bispoBranco);
-	
-	protected static Bispo bispoPreto = new Bispo();
-	protected static IBispo iBispoPreto = new IBispo(bispoPreto);
+        protected static Cavalo cavaloBranco1 = new Cavalo();
+        protected static ICavalo iCavaloBranco1 = new ICavalo(cavaloBranco1);
 
+
+        protected static Bispo bispoBranco = new Bispo();
+        protected static IBispo iBispoBranco = new IBispo(bispoBranco);
+
+        protected static Bispo bispoPreto = new Bispo();
+        protected static IBispo iBispoPreto = new IBispo(bispoPreto);
+    */
 	protected static Rainha rainhaBranca = new Rainha();
 	protected static IRainha iRainhaBranca = new IRainha(rainhaBranca);
-	
+
 	protected static Rainha rainhaPreta = new Rainha();
 	protected static IRainha iRainhaPreta = new IRainha(rainhaPreta);
-*/	
-	public static Peao peaoBranco1;
-	public static IPeao iPeaoBranco1;
 
-	public static Peao peaoPreto1;
-	public static IPeao iPeaoPreto1;
+        public static Peao peaoBranco1;
+        public static IPeao iPeaoBranco1;
 
-	public static Cavalo cavaloPreto1;
-	public static ICavalo iCavaloPreto1;
+        public static Peao peaoPreto1;
+        public static IPeao iPeaoPreto1;
+	/*
+            public static Cavalo cavaloPreto1;
+            public static ICavalo iCavaloPreto1;
 
-	public static Cavalo cavaloBranco1;
-	public static ICavalo iCavaloBranco1;
-
+            public static Cavalo cavaloBranco1;
+            public static ICavalo iCavaloBranco1;
+        */
 	public void iniciar(Tradutor t) {
 
-		
+
 		listaBrancas = new ArrayPecas();
 		listaPretas = new ArrayPecas();
 
@@ -81,9 +83,9 @@ public class Tabuleiro {
 		ITabuleiro iTabuleiro = new ITabuleiro();
 
 		TELA = new JFrame(t.traduzir("Xadrez"));
-/*
+
 		//Torres
-		
+
 		torreBranca.setCor(Xadrez.corBRANCA);
 		torreBranca.mover(0, 7);
 		iTorreBranca.setIconeBranco(new ImageIcon("imagens/Torre-Brancas-Branco.png"));
@@ -101,8 +103,6 @@ public class Tabuleiro {
 		listaPretas.add(torrePreta);
 
 
-
-		
 		// Reis
 
 		reiBranco.setCor(Xadrez.corBRANCA);
@@ -121,7 +121,7 @@ public class Tabuleiro {
 		TELA.getContentPane().add(iReiPreto.getImagem());
 		listaPretas.add(reiPreto);
 
-
+/*
 		// Bispos
 
 		bispoBranco.setCor(Xadrez.corBRANCA);
@@ -139,26 +139,26 @@ public class Tabuleiro {
 		iBispoPreto.mover(2, 0);
 		TELA.getContentPane().add(iBispoPreto.getImagem());
 		listaPretas.add(bispoPreto);
-		
- 		// Rainhas
+ */
+		// Rainhas
 
 		rainhaBranca.setCor(Xadrez.corBRANCA);
-		rainhaBranca.mover(3, 4);
+		rainhaBranca.mover(7, 3);
 		iRainhaBranca.setIconeBranco(new ImageIcon("imagens/Rainha-Brancas-Branco.png"));
 		iRainhaBranca.setIconeMarrom(new ImageIcon("imagens/Rainha-Brancas-Marrom.png"));
-		iRainhaBranca.mover(3, 4);
+		iRainhaBranca.mover(7, 3);
 		TELA.getContentPane().add(iRainhaBranca.getImagem());
 		listaBrancas.add(rainhaBranca);
 
 		rainhaPreta.setCor(Xadrez.corPRETA);
-		rainhaPreta.mover(6, 3);
+		rainhaPreta.mover(0, 3);
 		iRainhaPreta.setIconeBranco(new ImageIcon("imagens/Rainha-Pretas-Branco.png"));
 		iRainhaPreta.setIconeMarrom(new ImageIcon("imagens/Rainha-Pretas-Marrom.png"));
-		iRainhaPreta.mover(6, 3);
+		iRainhaPreta.mover(0, 3);
 		TELA.getContentPane().add(iRainhaPreta.getImagem());
 		listaPretas.add(rainhaPreta);
 
-*/		
+
 		// Pe�es
 
 		peaoBranco1 = new Peao();
@@ -181,14 +181,14 @@ public class Tabuleiro {
 		iPeaoPreto1.mover(3, 1);
 		TELA.getContentPane().add(iPeaoPreto1.getImagem());
 		listaPretas.add(peaoPreto1);
-
+/*
 		// Cavalos
 		cavaloPreto1 = new Cavalo();
 		iCavaloPreto1 = new ICavalo(cavaloPreto1);
 
 		cavaloBranco1 = new Cavalo();
 		iCavaloBranco1 = new ICavalo(cavaloBranco1);
-		
+
 		cavaloBranco1.setCor(Xadrez.corBRANCA);
 		cavaloBranco1.mover(2, 5);
 		iCavaloBranco1.setIconeBranco(new ImageIcon("imagens/Cavalo-Brancas-Branco.png"));
@@ -204,8 +204,8 @@ public class Tabuleiro {
 		iCavaloPreto1.mover(4, 1);
 		TELA.getContentPane().add(iCavaloPreto1.getImagem());
 		listaPretas.add(cavaloPreto1);
+*/
 
-		
 		TELA.getContentPane().add(iTabuleiro.getImagem());
 		TELA.setSize(400, 400);
 		TELA.setVisible(true);
@@ -213,12 +213,12 @@ public class Tabuleiro {
 	}
 
 	public static void avaliarEventoPeca(Peca p, IPeca ip) {
-		if (p.getCor() == corJogadorAtual) 
+		if (p.getCor() == corJogadorAtual)
 			marcarPeca(p, ip);
 		else if (pecaMarcada != null)
-			capturarPeca(p, ip);		
+			capturarPeca(p, ip);
 	}
-	
+
 	public static void avaliarEventoTabuleiro(int x, int y) {
 		if ( (pecaMarcada != null) && (x >= 0) && (x <= 7) && (y >=0) && (y <= 7) ) {
 			moverPecaMarcada(x, y);
@@ -245,10 +245,10 @@ public class Tabuleiro {
 			if (corJogadorAtual == Xadrez.corBRANCA)
 				corJogadorAtual = Xadrez.corPRETA;
 			else
-				corJogadorAtual = Xadrez.corBRANCA;			
+				corJogadorAtual = Xadrez.corBRANCA;
 		}
 	}
-	
+
 	public static void moverPecaMarcada(int x, int y) {
 		if (pecaMarcada.mover(x, y)) {
 			iPecaMarcada.desmarcar();
