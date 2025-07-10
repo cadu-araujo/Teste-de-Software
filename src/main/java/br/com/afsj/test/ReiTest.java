@@ -1,18 +1,15 @@
-package br.com.afsj.test;
+package br.com.afsj.model;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import br.com.afsj.view.IPeao;
+import br.com.afsj.view.IRainha;
+import br.com.afsj.view.IRei;
+import br.com.afsj.view.ITorre;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import br.com.afsj.model.Peao;
-import br.com.afsj.model.Tabuleiro;
-import br.com.afsj.model.TradutorEspanhol;
-import br.com.afsj.view.IPeao;
-import br.com.afsj.model.Rei;
-
-public class ReiTest {
+import static org.junit.jupiter.api.Assertions.*;
+class ReiTest {
     @BeforeEach
     public void iniciarTabuleiro() {
         Tabuleiro tabuleiro = new Tabuleiro();
@@ -160,7 +157,133 @@ public class ReiTest {
                 () -> assertEquals(3, pp.getPosX()),
                 () -> assertEquals(2, pp.getPosY())
         );
-
     }
 
-}
+        @Test
+        @DisplayName("Realizar o roque maior")
+        void roqueMaior(){
+            Rei rb = Tabuleiro.reiBranco;
+            IRei irb = Tabuleiro.iReiBranco;
+
+            Torre tb = Tabuleiro.torreBranca;
+            ITorre itb = Tabuleiro.iTorreBranca;
+
+            Tabuleiro.avaliarEventoPeca(rb, irb);
+            Tabuleiro.avaliarEventoTabuleiro(7, 2);
+
+            assertAll("Mover Rei branco para 7, 2.",
+                    () -> assertEquals(7, rb.getPosX()),
+                    () -> assertEquals(2, rb.getPosY()),
+                    () -> assertEquals(7, tb.getPosX()),
+                    () -> assertEquals(3, tb.getPosY())
+            );
+        }
+
+        @Test
+        @DisplayName("Realizar o roque menor")
+        void roqueMenor(){
+            Rei rb = Tabuleiro.reiBranco;
+            IRei irb = Tabuleiro.iReiBranco;
+
+            Torre tb = Tabuleiro.torreBranca;
+            ITorre itb = Tabuleiro.iTorreBranca;
+
+            Tabuleiro.avaliarEventoPeca(rb, irb);
+            Tabuleiro.avaliarEventoTabuleiro(7, 6);
+
+            assertAll("Mover Rei branco para 7, 6.",
+                    () -> assertEquals(7, rb.getPosX()),
+                    () -> assertEquals(6, rb.getPosY()),
+                    () -> assertEquals(7, tb.getPosX()),
+                    () -> assertEquals(5, tb.getPosY())
+            );
+        }
+
+        @Test
+        @DisplayName("Tentar mover a Rainha enquanto o Rei está em Xeque")
+        void rainhaSeMoverDeixandoOReiEmCheque(){
+            Rei rb = Tabuleiro.reiBranco;
+            IRei irb = Tabuleiro.iReiBranco;
+
+            Rainha rrb = Tabuleiro.rainhaBranca;
+            IRainha irrb = Tabuleiro.iRainhaBranca;
+
+            Rainha rrp = Tabuleiro.rainhaPreta;
+            IRainha irrp = Tabuleiro.iRainhaPreta;
+
+            rrp.mover(1, 4);
+            irrp.mover(1, 4);
+
+            Tabuleiro.avaliarEventoPeca(rrb, irrb);
+            Tabuleiro.avaliarEventoTabuleiro(6, 2);
+
+            assertAll("Mover Rainha para 6, 2",
+                    () -> assertEquals(7, rrb.getPosX()),
+                    () -> assertEquals(3, rrb.getPosY())
+            );
+        }
+
+    @Test
+    @DisplayName("Tentar mover para uma casa em perigo")
+    void reiparaUmaCasaEmPerigo(){
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+        Rainha rrb = Tabuleiro.rainhaBranca;
+        IRainha irrb = Tabuleiro.iRainhaBranca;
+
+        Rainha rrp = Tabuleiro.rainhaPreta;
+        IRainha irrp = Tabuleiro.iRainhaPreta;
+
+        rrp.mover(3, 5);
+        irrp.mover(3, 5);
+
+        Tabuleiro.avaliarEventoPeca(rrb, irrb);
+        Tabuleiro.avaliarEventoTabuleiro(3, 6);
+
+        assertAll("Mover Rei para D2",
+                () -> assertEquals(4, rrb.getPosX()),
+                () -> assertEquals(7, rrb.getPosY())
+        );
+    }
+
+    @Test
+    @DisplayName("Validação do movimento - Casas permitidas")
+    void reiparaUmaCasaPermitida(){
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+
+        rb.mover(4, 3);
+        irb.mover(4, 3);
+
+        Tabuleiro.avaliarEventoPeca(rb, irb);
+        Tabuleiro.avaliarEventoTabuleiro(5, 3);
+
+        assertAll("Mover Rei para f5",
+                () -> assertEquals(5, rb.getPosX()),
+                () -> assertEquals(3, rb.getPosY())
+        );
+    }
+
+
+
+    @Test
+    @DisplayName("Validação do movimento - Casas não permitidas")
+    void reiparaUmaCasaNaoPermitida(){
+        Rei rb = Tabuleiro.reiBranco;
+        IRei irb = Tabuleiro.iReiBranco;
+
+
+        rb.mover(4, 3);
+        irb.mover(4, 3);
+
+        Tabuleiro.avaliarEventoPeca(rb, irb);
+        Tabuleiro.avaliarEventoTabuleiro(6, 3);
+
+        assertAll("Mover Rei para g5",
+                () -> assertEquals(4, rb.getPosX()),
+                () -> assertEquals(3, rb.getPosY())
+        );
+    }
+    }
