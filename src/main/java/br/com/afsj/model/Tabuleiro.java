@@ -25,6 +25,11 @@ public class Tabuleiro {
 	
 	protected static ITabuleiro iTabuleiro;
 
+	public static Rei reiBranco = new Rei();
+	public static IRei iReiBranco = new IRei(reiBranco);
+
+	public static Rei reiPreto = new Rei();
+	public static IRei iReiPreto = new IRei(reiPreto);
 /*
 	protected static Torre torreBranca = new Torre();
 	protected static ITorre iTorreBranca = new ITorre(torreBranca);
@@ -32,11 +37,6 @@ public class Tabuleiro {
 	protected static Torre torrePreta = new Torre();
 	protected static ITorre iTorrePreta = new ITorre(torrePreta);
 
-	protected static Rei reiBranco = new Rei();
-	protected static IRei iReiBranco = new IRei(reiBranco);
-	
-	protected static Rei reiPreto = new Rei();
-	protected static IRei iReiPreto = new IRei(reiPreto);
 
 	protected static Cavalo cavaloPreto1 = new Cavalo();
 	protected static ICavalo iCavaloPreto1 = new ICavalo(cavaloPreto1);
@@ -50,13 +50,14 @@ public class Tabuleiro {
 	
 	protected static Bispo bispoPreto = new Bispo();
 	protected static IBispo iBispoPreto = new IBispo(bispoPreto);
-
-	protected static Rainha rainhaBranca = new Rainha();
-	protected static IRainha iRainhaBranca = new IRainha(rainhaBranca);
+	*/
+	public static Rainha rainhaBranca = new Rainha();
+	public static IRainha iRainhaBranca = new IRainha(rainhaBranca);
 	
-	protected static Rainha rainhaPreta = new Rainha();
-	protected static IRainha iRainhaPreta = new IRainha(rainhaPreta);
-*/	
+	public static Rainha rainhaPreta = new Rainha();
+	public static IRainha iRainhaPreta = new IRainha(rainhaPreta);
+	/*
+	*/
 	public static Peao peaoBranco1;
 	public static IPeao iPeaoBranco1;
 
@@ -105,7 +106,7 @@ public class Tabuleiro {
 		
 		// Reis
 
-		reiBranco.setCor(Xadrez.corBRANCA);
+		*/ reiBranco.setCor(Xadrez.corBRANCA);
 		reiBranco.mover(4, 7);
 		iReiBranco.setIconeBranco(new ImageIcon("imagens/Rei-Brancas-Branco.png"));
 		iReiBranco.setIconeMarrom(new ImageIcon("imagens/Rei-Brancas-Marrom.png"));
@@ -120,7 +121,7 @@ public class Tabuleiro {
 		iReiPreto.mover(4, 0);
 		TELA.getContentPane().add(iReiPreto.getImagem());
 		listaPretas.add(reiPreto);
-
+		/*
 
 		// Bispos
 
@@ -141,7 +142,7 @@ public class Tabuleiro {
 		listaPretas.add(bispoPreto);
 		
  		// Rainhas
-
+		*/
 		rainhaBranca.setCor(Xadrez.corBRANCA);
 		rainhaBranca.mover(3, 4);
 		iRainhaBranca.setIconeBranco(new ImageIcon("imagens/Rainha-Brancas-Branco.png"));
@@ -157,7 +158,7 @@ public class Tabuleiro {
 		iRainhaPreta.mover(6, 3);
 		TELA.getContentPane().add(iRainhaPreta.getImagem());
 		listaPretas.add(rainhaPreta);
-
+		/*
 */		
 		// Pe�es
 
@@ -260,5 +261,9 @@ public class Tabuleiro {
 			else
 				corJogadorAtual = Xadrez.corBRANCA;
 		}
+	}
+
+	public static void setPecaMarcadaToNull(){
+		pecaMarcada = null;
 	}
 }

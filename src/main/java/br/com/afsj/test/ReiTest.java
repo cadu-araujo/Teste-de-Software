@@ -1,16 +1,17 @@
 package br.com.afsj.test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import br.com.afsj.model.*;
+import br.com.afsj.view.IRainha;
+import br.com.afsj.view.IRei;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import br.com.afsj.model.Peao;
-import br.com.afsj.model.Tabuleiro;
-import br.com.afsj.model.TradutorEspanhol;
 import br.com.afsj.view.IPeao;
-import br.com.afsj.model.Rei;
+
+import javax.swing.table.TableCellEditor;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReiTest {
     @BeforeEach
@@ -104,7 +105,7 @@ public class ReiTest {
     @Test
     @DisplayName("Tentar mover a Rainha pondo o Rei em Xeque")
     public void tentarMoverRainhaPondoReiEmXeque() throws InterruptedException {
-        Rei rb = Tabuleiro.reiBranco;
+        Rei rb =  Tabuleiro.reiBranco;
         IRei irb = Tabuleiro.iReiBranco;
 
         Thread.sleep(1000);
@@ -160,6 +161,72 @@ public class ReiTest {
                 () -> assertEquals(3, pp.getPosX()),
                 () -> assertEquals(2, pp.getPosY())
         );
+
+    }
+
+    @Test
+    @DisplayName("Rei capturar uma peça do adversário")
+    void reiCapturarPecaAdversario(){
+
+
+        Rei WhiteKing = Tabuleiro.reiBranco;
+        IRei IWhiteKing = Tabuleiro.iReiBranco;
+
+        Peao pp = Tabuleiro.peaoPreto1;
+        IPeao ipp = Tabuleiro.iPeaoPreto1;
+
+        WhiteKing.remover();
+        WhiteKing.mover(4,6);
+        IWhiteKing.mover(4,6);
+        pp.remover();
+        pp.mover(4,5);
+        ipp.mover(4,5);
+
+        Tabuleiro.avaliarEventoPeca(WhiteKing, IWhiteKing);
+        //Tabuleiro.avaliarEventoTabuleiro(4,5);
+        Tabuleiro.avaliarEventoPeca(pp, ipp);
+        assertAll("Rei capturando peça: ",
+                () -> assertEquals(-1, pp.getPosX()),
+                () -> assertEquals(-1, pp.getPosY()),
+                () -> assertEquals(4, WhiteKing.getPosX()),
+                () -> assertEquals(5, WhiteKing.getPosY())
+        );
+
+    }
+
+    @Test
+    @DisplayName("RF66 - Não permitir o Xeque")
+    void naoPermitirXeque(){
+        //Ter o rei na posicao E1
+        Rei whiteKing = Tabuleiro.reiBranco;
+        IRei IwhiteKing = Tabuleiro.iReiBranco;
+        whiteKing.remover();
+        whiteKing.mover(4,7);
+        IwhiteKing.mover(4,7);
+
+        //Ter uma rainha branca na posicao D8
+        Rainha rainha = Tabuleiro.rainhaPreta;
+        IRainha Irainha = Tabuleiro.iRainhaPreta;
+        rainha.remover();
+        rainha.mover(3,0);
+        Irainha.mover(3,0);
+
+        //Selecionar Rei Branco
+        //Selecionar casa D2
+
+        Tabuleiro.avaliarEventoPeca(whiteKing, IwhiteKing);
+        Tabuleiro.avaliarEventoTabuleiro(6,3);
+
+        System.out.println('x rei: ');
+
+        assertAll("Verificar movimento ilegal de Xeque",
+                () -> assertNotEquals(6, whiteKing.getPosX()),
+                () -> assertNotEquals(3, whiteKing.getPosY())
+                );
+
+    }
+
+    void naoPermitirXequeRainha (){
 
     }
 
